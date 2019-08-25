@@ -26,16 +26,35 @@ function isType(type){
 }
 
 let util = {}; 
-let arr = ['String','Object','Function','Null']
+let arr = ['String','Object','Function','Null','Number']
 arr.forEach(t=>{
     util['is'+t] = isType(t)
 })
-console.log(util.isString('222'))
+console.log(util.isNumber(111))
 
+let createComponent = function(component,props){
+    component.render=function(){
+        return component(props)
+    }
+    return component
+}
+
+let renderComponent = function(component){
+    return _render(component.render())
+}
 
 function _render(vnode){
+    if(util.isNumber(vnode)) vnode = vnode.toString();
     if(util.isString(vnode)) return document.createTextNode(vnode)
-    let {props,type,children} = vnode;
+    let {type,props,children} = vnode;
+    //type是函数时 为组件
+    if(util.isFunction(type)){
+        //创建组件  用来渲染
+        let component = createComponent(type,props)
+        //进行渲染  返回真实dom
+        let dom = renderComponent(component)
+        return dom
+    }
     let element = document.createElement(type);
     if(props){
         for(let key in props){
