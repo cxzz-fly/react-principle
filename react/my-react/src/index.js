@@ -13,9 +13,32 @@ import ReactDOM from './react-dom'
 //     xiaozhuo.cheng</h1>
 
 //组件 函数组件
-function MyComponennt(props){
-    console.log(props)
-    return <h1> hello {props.value} {props.a}</h1>
+// function MyComponennt(props){
+//     console.log(props)
+//     return <h1> hello {props.value} {props.a}</h1>
+// }
+
+//  class 组件
+class MyComponennt extends React.Component{
+    constructor(props){
+        super()
+        // this.props=props
+        // this.state={}
+        this.state={
+            a:'hello' 
+        }
+    }
+    componentWillMount(){
+        console.log('将要挂载')
+    }
+    componentDidMount() {
+        console.log('挂载完成')
+    }
+    render(){
+        return <h1 onClick={()=>{
+            this.setState({a:'word'})
+        }}>hello Class {this.state.a}</h1>
+    }
 }
 // console.log(MyComponennt)
 
