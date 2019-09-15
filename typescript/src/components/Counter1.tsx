@@ -15,7 +15,8 @@ class Counter extends React.Component<props,object>{
         super(props)
     }
     btn=()=>{
-        this.props.history.push(`/2`);
+        // this.props.history.push(`/2`);
+        this.props.history.push({pathname:'/2',state:{id:3}});
     }
     render(){
         console.log(this.props)
